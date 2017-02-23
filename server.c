@@ -22,5 +22,7 @@ int main() {
         fprintf(stderr, "Error with socket\n");
     }
 
-    
+    if ((bind(sock_fd, (struct sockaddr *) &saddr_in, sizeof(saddr_in))) < 0) {
+        fprintf(stderr, "Error with binding\n");
+    } 
 }
