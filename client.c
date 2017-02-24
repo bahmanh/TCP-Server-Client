@@ -30,7 +30,6 @@ int main() {
     }
 
     if (connect(sock_fd, (struct sockaddr *) &saddr_in, sizeof(saddr_in)) < 0) {
-        perror("");
         fprintf(stderr, "Error with connect\n");
         close(sock_fd);
         exit(1);
@@ -44,7 +43,5 @@ int main() {
         write(sock_fd, send_buff, strlen(send_buff)+1);
         read(sock_fd, recv_buff,sizeof(recv_buff));
         printf("%s", recv_buff);
-
     }
-    return 0;
 }
