@@ -4,10 +4,28 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <strings.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-#define MAX_DATA  256
-#define PORT  3228
-#define MAX_CONNECTIONS  5
+#define MAX_DATA 256
+#define PORT 5432
+#define MAX_CONNECTIONS 5
+
+/*
+ * Function:  increment_chars 
+ * ---------------------------
+ * increment the ascii of each char. 
+ *
+ *  char *str: pointer to beginning of string
+ *  int length: Length of how many chars to increment
+ *
+ *  returns: none
+ */
+void increment_chars(char *str, int length) {
+    for (int i = 0; i < length-2; i++) {
+        str[i]++;
+    }
+}
 
 int main() {
     
@@ -36,15 +54,16 @@ int main() {
     while(1) {
         bzero(&buff, sizeof(buff));
         
-        if ((conn_fd = accept(sock_fd, (struct sockaddr *) &saddr_in, &length)) < 0) {
+        if ((conn_fd = accept(sock_fd, (struct sockaddr *) &saddr_in, (socklen_t * )&length)) < 0) {
             fprintf(stderr, "Error with accept\n");
             exit(1);
         }
 
-        while (length = recv(conn_fd, buff, sizeof(buff), 0)) {
+        while ((length = recv(conn_fd, buff, sizeof(buff), 0))) {
+            increment_chars((char *) buff, length);
             write(conn_fd, buff, length);
         }
         close(conn_fd);
     }
-
+    return 0;
 }
