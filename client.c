@@ -24,5 +24,27 @@ int main() {
     saddr_in.sin_addr.s_addr=inet_addr(host);
     saddr_in.sin_port = htons(PORT);
     
-    
+    if ((sock_fd = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
+        fprintf(stderr, "Error with socket\n");
+        exit(1);
+    }
+
+    if (connect(sock_fd, (struct sockaddr *) &saddr_in, sizeof(saddr_in)) < 0) {
+        perror("");
+        fprintf(stderr, "Error with connect\n");
+        close(sock_fd);
+        exit(1);
+    }
+
+    while (1) {
+        bzero(send_buff, sizeof(send_buff));
+        bzero(recv_buff, sizeof(recv_buff));
+        fgets(send_buff, sizeof(send_buff), stdin);
+        send_buff[MAX_DATA-1] = '\0';
+        write(sock_fd, send_buff, strlen(send_buff)+1);
+        read(sock_fd, recv_buff,sizeof(recv_buff));
+        printf("%s", recv_buff);
+
+    }
+    return 0;
 }
