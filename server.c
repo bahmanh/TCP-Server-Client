@@ -22,13 +22,16 @@
  *  returns: none
  */
 void increment_chars(char *str, int length) {
+    if (str == NULL) {
+        return;
+    }
+    
     for (int i = 0; i < length-2; i++) {
         str[i]++;
     }
 }
 
 int main() {
-    
     char buff[MAX_DATA];
     struct sockaddr_in saddr_in;
     int sock_fd, conn_fd;
