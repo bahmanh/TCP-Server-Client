@@ -14,7 +14,7 @@
 /*
  * Function:  increment_chars 
  * ---------------------------
- * increment the ascii of each char. 
+ * increment the ascii value of each char. 
  *
  *  char *str: pointer to beginning of string
  *  int length: Length of how many chars to increment
@@ -25,7 +25,7 @@ void increment_chars(char *str, int length) {
     if (str == NULL) {
         return;
     }
-    
+
     for (int i = 0; i < length-2; i++) {
         str[i]++;
     }
