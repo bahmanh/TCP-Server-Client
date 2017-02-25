@@ -44,4 +44,5 @@ int main() {
         read(sock_fd, recv_buff,sizeof(recv_buff));
         printf("%s", recv_buff);
     }
+    return 0;
 }
